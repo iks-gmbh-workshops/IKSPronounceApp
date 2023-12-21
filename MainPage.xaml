@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IKSPronounceApp"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="IKSPronounceApp.MainPage"
+             Title="IKS Pronounce">
+
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <DataTemplate x:Key="InformationMessageTemplate">
+            <Label Text="{Binding Text}" FontSize="18" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        </DataTemplate>
+        <DataTemplate x:Key="ScoreMessageTemplate">
+            <Label Text="{Binding Text}" FontSize="18" TextColor="{Binding Color}" />
+        </DataTemplate>
+        <DataTemplate x:Key="ErrorMessageTemplate">
+            <Label Text="{Binding Text}" FontSize="18" TextColor="#FF0026" />
+        </DataTemplate>
+
+        <local:OutputMessageTemplateSelector x:Key="OutputMessageTemplateSelector"
+                                             InformationMessageTemplate="{StaticResource InformationMessageTemplate}"
+                                             ScoreMessageTemplate="{StaticResource ScoreMessageTemplate}"
+                                             ErrorMessageTemplate="{StaticResource ErrorMessageTemplate}" />
+    </ContentPage.Resources>
+
+    <Grid Margin="20" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" Spacing="20">
+            <Picker
+                ItemsSource="{Binding Model.LanguageVoiceItems}"
+                ItemDisplayBinding="{Binding LanguageNameAndLocale}"
+                SelectedItem="{Binding SelectedLanguageVoiceItem}"
+                IsEnabled="{Binding IsReady}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="LanguageVoiceItem" />
+                </Picker.Behaviors>
+            </Picker>
+            <Editor
+                HeightRequest="150"
+                Placeholder="Text"
+                Text="{Binding InputText}"
+                MaxLength="10000"
+                Keyboard="Text"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                IsEnabled="{Binding IsReady}" />
+            <!--<FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Center">
+                <Button x:Name="btnGetText" Text="Get text" Clicked="BtnGetText_Clicked" Margin="4" />
+                <Button x:Name="btnSpeak" Text="Speak" Clicked="BtnSpeak_Clicked" Margin="4" />
+                <Button x:Name="btnListen" Text="Listen" Clicked="BtnListen_Clicked" Margin="4" />
+                <Button x:Name="btnClose" Text="Close" Clicked="BtnClose_Clicked" Margin="4" />
+            </FlexLayout>-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Text="Get text"
+                    Margin="4"
+                    Command="{Binding GetTextCommand}"
+                    IsEnabled="{Binding IsReady}" />
+                <Button
+                    Grid.Column="1"
+                    Text="Speak"
+                    Margin="4"
+                    Command="{Binding SpeakCommand}"
+                    IsEnabled="{Binding IsReady}" />
+                <Button
+                    Grid.Column="2"
+                    Text="Listen"
+                    Margin="4"
+                    Command="{Binding ListenCommand}"
+                    IsEnabled="{Binding IsReady}" />
+                <Button
+                    Grid.Column="3"
+                    Text="Close"
+                    Margin="4"
+                    Clicked="BtnClose_Clicked" />
+            </Grid>
+        </StackLayout>
+        <ScrollView
+            Grid.Row="1"
+            x:Name="scvMain"
+            VerticalOptions="Fill">
+            <StackLayout
+                x:Name="stlMain"
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding OutputMessages}"
+                BindableLayout.ItemTemplateSelector="{StaticResource OutputMessageTemplateSelector}" />
+        </ScrollView>
+        <AbsoluteLayout
+            Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+            <ActivityIndicator
+                WidthRequest="25"
+                HeightRequest="25"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}" />
+        </AbsoluteLayout>
+    </Grid>
+	
+</ContentPage>

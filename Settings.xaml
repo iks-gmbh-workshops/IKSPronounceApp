@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:local="clr-namespace:IKSPronounceApp"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IKSPronounceApp.Settings"
+             Title="Settings">
+
+    <ContentPage.BindingContext>
+        <local:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid Margin="20">
+        <ScrollView x:Name="scvMain" VerticalOptions="Fill">
+            <VerticalStackLayout x:Name="stlMain">
+                
+                <Label
+                    Margin="5,35,5,0"
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    Text="Azure Speech Subscription Key" />
+                <Entry
+                    Text="{Binding Model.SpeechSubscriptionKey}"
+                    Placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    MaxLength="100"
+                    Keyboard="Text"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding SaveCommand}"
+                            CommandParameter="SpeechSubscriptionKey" />
+                    </Entry.Behaviors>
+                </Entry>
+                
+                <Label
+                    Margin="5,35,5,0"
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    Text="Azure Speech Service Region" />
+                <Entry
+                    Text="{Binding Model.SpeechServiceRegion}"
+                    Placeholder="Name of region"
+                    MaxLength="100"
+                    Keyboard="Text"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding SaveCommand}"
+                            CommandParameter="SpeechServiceRegion" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Label
+                    Margin="5,35,5,0"
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    Text="Initial Silence Timeout (ms)" />
+                <Entry
+                    Text="{Binding Model.InitialSilenceTimeoutMs}"
+                    Placeholder="5000"
+                    MaxLength="10"
+                    Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding SaveCommand}"
+                            CommandParameter="InitialSilenceTimeoutMs" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Label
+                    Margin="5,35,5,0"
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    Text="End Silence Timeout (ms)" />
+                <Entry
+                    Text="{Binding Model.EndSilenceTimeoutMs}"
+                    Placeholder="2000"
+                    MaxLength="10"
+                    Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding SaveCommand}"
+                            CommandParameter="EndSilenceTimeoutMs" />
+                    </Entry.Behaviors>
+                </Entry>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
