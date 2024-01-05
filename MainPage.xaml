@@ -53,14 +53,7 @@
                 MaxLength="10000"
                 Keyboard="Text"
                 IsSpellCheckEnabled="False"
-                IsTextPredictionEnabled="False"
-                IsEnabled="{Binding IsReady}" />
-            <!--<FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Center">
-                <Button x:Name="btnGetText" Text="Get text" Clicked="BtnGetText_Clicked" Margin="4" />
-                <Button x:Name="btnSpeak" Text="Speak" Clicked="BtnSpeak_Clicked" Margin="4" />
-                <Button x:Name="btnListen" Text="Listen" Clicked="BtnListen_Clicked" Margin="4" />
-                <Button x:Name="btnClose" Text="Close" Clicked="BtnClose_Clicked" Margin="4" />
-            </FlexLayout>-->
+                IsTextPredictionEnabled="False" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
