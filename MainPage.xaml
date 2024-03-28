@@ -12,13 +12,13 @@
     
     <ContentPage.Resources>
         <DataTemplate x:Key="InformationMessageTemplate">
-            <Label Text="{Binding Text}" FontSize="18" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+            <Label x:DataType="local:OutputMessage" Text="{Binding Text}" FontSize="18" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         </DataTemplate>
         <DataTemplate x:Key="ScoreMessageTemplate">
-            <Label Text="{Binding Text}" FontSize="18" TextColor="{Binding Color}" />
+            <Label x:DataType="local:OutputMessage" Text="{Binding Text}" FontSize="18" TextColor="{Binding Color}" />
         </DataTemplate>
         <DataTemplate x:Key="ErrorMessageTemplate">
-            <Label Text="{Binding Text}" FontSize="18" TextColor="#FF0026" />
+            <Label x:DataType="local:OutputMessage" Text="{Binding Text}" FontSize="18" TextColor="#FF0026" />
         </DataTemplate>
 
         <local:OutputMessageTemplateSelector x:Key="OutputMessageTemplateSelector"
@@ -35,6 +35,7 @@
         </Grid.RowDefinitions>
         <StackLayout Grid.Row="0" Spacing="20">
             <Picker
+                x:DataType="local:MainPageViewModel"
                 ItemsSource="{Binding Model.LanguageVoiceItems}"
                 ItemDisplayBinding="{Binding LanguageNameAndLocale}"
                 SelectedItem="{Binding SelectedLanguageVoiceItem}"
@@ -47,6 +48,7 @@
                 </Picker.Behaviors>
             </Picker>
             <Editor
+                x:DataType="local:MainPageViewModel"
                 HeightRequest="150"
                 Placeholder="Text"
                 Text="{Binding InputText}"
@@ -54,6 +56,12 @@
                 Keyboard="Text"
                 IsSpellCheckEnabled="False"
                 IsTextPredictionEnabled="False" />
+            <!--<FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Center">
+                <Button x:Name="btnGetText" Text="Get text" Clicked="BtnGetText_Clicked" Margin="4" />
+                <Button x:Name="btnSpeak" Text="Speak" Clicked="BtnSpeak_Clicked" Margin="4" />
+                <Button x:Name="btnListen" Text="Listen" Clicked="BtnListen_Clicked" Margin="4" />
+                <Button x:Name="btnClose" Text="Close" Clicked="BtnClose_Clicked" Margin="4" />
+            </FlexLayout>-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -62,24 +70,28 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Button
+                    x:DataType="local:MainPageViewModel"
                     Grid.Column="0"
                     Text="Get text"
                     Margin="4"
                     Command="{Binding GetTextCommand}"
                     IsEnabled="{Binding IsReady}" />
                 <Button
+                    x:DataType="local:MainPageViewModel"
                     Grid.Column="1"
                     Text="Speak"
                     Margin="4"
                     Command="{Binding SpeakCommand}"
                     IsEnabled="{Binding IsReady}" />
                 <Button
+                    x:DataType="local:MainPageViewModel"
                     Grid.Column="2"
                     Text="Listen"
                     Margin="4"
                     Command="{Binding ListenCommand}"
                     IsEnabled="{Binding IsReady}" />
                 <Button
+                    x:DataType="local:MainPageViewModel"
                     Grid.Column="3"
                     Text="Close"
                     Margin="4"
@@ -91,6 +103,7 @@
             x:Name="scvMain"
             VerticalOptions="Fill">
             <StackLayout
+                x:DataType="local:MainPageViewModel"
                 x:Name="stlMain"
                 Spacing="10"
                 BindableLayout.ItemsSource="{Binding OutputMessages}"
@@ -101,6 +114,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <ActivityIndicator
+                x:DataType="local:MainPageViewModel"
                 WidthRequest="25"
                 HeightRequest="25"
                 HorizontalOptions="Center"

@@ -19,6 +19,7 @@
                     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
                     Text="Azure Speech Subscription Key" />
                 <Entry
+                    x:DataType="local:SettingsViewModel"
                     Text="{Binding Model.SpeechSubscriptionKey}"
                     Placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     MaxLength="100"
@@ -38,6 +39,7 @@
                     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
                     Text="Azure Speech Service Region" />
                 <Entry
+                    x:DataType="local:SettingsViewModel"
                     Text="{Binding Model.SpeechServiceRegion}"
                     Placeholder="Name of region"
                     MaxLength="100"
@@ -57,6 +59,7 @@
                     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
                     Text="Initial Silence Timeout (ms)" />
                 <Entry
+                    x:DataType="local:SettingsViewModel"
                     Text="{Binding Model.InitialSilenceTimeoutMs}"
                     Placeholder="5000"
                     MaxLength="10"
@@ -74,6 +77,7 @@
                     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
                     Text="End Silence Timeout (ms)" />
                 <Entry
+                    x:DataType="local:SettingsViewModel"
                     Text="{Binding Model.EndSilenceTimeoutMs}"
                     Placeholder="2000"
                     MaxLength="10"

@@ -69,11 +69,6 @@ internal static class Util
         return new OutputMessage { Type = OutputMessageType.Error, Text = ex.Message };
     }
 
-    internal static OutputMessage GetNoResponseText()
-    {
-        return new OutputMessage { Type = OutputMessageType.Error, Text = "NO RESPONSE" };
-    }
-
     internal static string LoadTextPropertySync(string key, bool isSecure)
     {
        return Task<string>.Run(() => LoadTextProperty(key, isSecure)).Result;
